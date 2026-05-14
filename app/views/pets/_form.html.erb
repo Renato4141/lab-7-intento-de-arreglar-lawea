@@ -26,4 +26,37 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :date_of_birth, class: "form
+    <%= form.label :date_of_birth, class: "form-label" %>
+    <%= form.date_field :date_of_birth, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :weight, class: "form-label" %>
+    <%= form.number_field :weight, step: 0.1, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :owner_id, class: "form-label" %>
+    <%= form.collection_select :owner_id, Owner.all, :id, :full_name, { include_blank: true }, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :photo, class: "form-label" %>
+    <% if pet.photo.attached? %>
+      <div class="mb-2">
+        <p class="form-text text-muted">Current photo</p>
+        <%= image_tag pet.photo.variant(resize_to_limit: [100, 100]), class: "img-thumbnail" %>
+      </div>
+    <% end %>
+    <%= form.file_field :photo, class: "form-control" %>
+    <% if pet.errors[:photo].any? %>
+      <div class="text-danger mt-1">
+        <%= pet.errors[:photo].join(", ") %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

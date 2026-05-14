@@ -34,10 +34,10 @@ class Pet < ApplicationRecord
   def photo_validation
     return unless photo.attached?
 
-    allowed_types = ["image/jpeg", "image/png", "image/webp"]
+    allowed_types = ["image/jpeg", "image/png", "image/webp","image/avif"]
 
     unless allowed_types.include?(photo.content_type)
-      errors.add(:photo, "must be a JPEG, PNG, or WEBP type")
+      errors.add(:photo, "must be a JPEG, PNG, WEBP, or AVIF type")
     end
 
     if photo.attached? && photo.blob.present? && photo.blob.byte_size > 5.megabytes
